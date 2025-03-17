@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-// Start server
+// Start server//
 app.listen(config.port, () => {
   logger.info(`✅ Server running on port ${config.port} in ${config.nodeEnv} mode`);
 });
