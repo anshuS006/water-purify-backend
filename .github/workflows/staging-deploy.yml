@@ -1,0 +1,38 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - stg
+
+env:
+  CI: false
+
+jobs:
+  deploy:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/stg'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Connect to GCP VM and Deploy
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+          script: |
+            echo "🚀 Connecting to GCP VM..."
+            cd /home/${{ secrets.GCP_VM_USER }}/water-purify-backend
+            echo "🔄 Pulling latest code..."
+            git pull origin stg
+            echo "📦 Installing dependencies..."
+            npm install
+            echo "⚙️ Running build step (if applicable)..."
+            npm run build || echo "No build step required"
+            echo "🔄 Restarting server with PM2..."
+            pm2 restart all || pm2 start server.js --name water-purify-backend
+            echo "✅ Deployment to Staging Completed!"
