@@ -5,7 +5,6 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const logger = require("./utils/logger"); 
 const connectDB = require("./config/db");
-const config = require("./config/config");
 const authRoutes = require("./routes/auth.routes");
 const serviceRoutes = require("./routes/service.routes");
 const technicianRoutes = require("./routes/technician.routes"); // Import technician routes

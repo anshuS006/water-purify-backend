@@ -1,12 +1,11 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-const config = require("../config/config");
 const ApiResponse = require('../utils/apiResponse'); // Import the ApiResponse class
 const ApiError = require('../utils/apiError'); // Custom error handler
 
 // Generate JWT Token
 const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, config.jwtSecret, { expiresIn: "7d" });
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: "7d" });
 };
 
 // @desc Register User (Customer or Service Provider)
