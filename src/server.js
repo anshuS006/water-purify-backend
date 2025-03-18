@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -39,6 +40,6 @@ app.use((err, req, res, next) => {
 });
 
 // Start server//
-app.listen(config.port, () => {
-  logger.info(`✅ Server running on port ${config.port} in ${config.nodeEnv} mode`);
+app.listen(process.env.PORT, () => {
+  logger.info(`✅ Server running on port ${process.env.PORT}`);
 });

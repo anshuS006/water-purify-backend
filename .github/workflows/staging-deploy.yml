@@ -34,5 +34,5 @@ jobs:
             echo "⚙️ Running build step (if applicable)..."
             npm run build || echo "No build step required"
             echo "🔄 Restarting server with PM2..."
-            pm2 restart all || pm2 start server.js --name water-purify-backend
+            pm2 restart all || pm2 start src/server.js --name water-purify-backend
             echo "✅ Deployment to Staging Completed!"
